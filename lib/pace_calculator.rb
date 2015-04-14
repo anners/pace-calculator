@@ -34,15 +34,23 @@ class PaceCalculator
 
 	end
 
+#
+# TODO return a hash and make single minutes 0X and do seconds math
+#
 	def mile_and_time()
-		pace = get_pace
+		pace_min, pace_sec = get_pace.split(':')
 		hour = get_hour(@start_time)
  		minutes = get_min(@start_time)
-
+ 		seconds = 0
 
 		@distance.to_i.times do |i|
-	  		
-	  		puts "mile #{i}"
+	  		time = "#{hour}:#{minutes}:#{seconds}"
+	  		puts "mile #{i} : time #{time}"
+	  		minutes += pace_min.to_i
+	  		if minutes >= 60 
+	  			minutes -= 60
+	  			hour += 1
+	  		end
 		end
 	end
 
