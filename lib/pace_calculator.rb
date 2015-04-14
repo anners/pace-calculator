@@ -44,13 +44,17 @@ class PaceCalculator
  		seconds = 0
 
 		@distance.to_i.times do |i|
-	  		time = "#{hour}:#{minutes}:#{seconds}"
+			# format correcly
+			formatted_mins = '%02d' % minutes
+			formatted_secs = '%02d' % seconds
+	  		time = "#{hour}:#{formatted_mins}:#{formatted_secs}"
 	  		puts "mile #{i} : time #{time}"
 	  		minutes += pace_min.to_i
 	  		if minutes >= 60 
 	  			minutes -= 60
 	  			hour += 1
 	  		end
+	  		# format correcly
 		end
 	end
 
