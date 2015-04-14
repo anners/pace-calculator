@@ -17,7 +17,7 @@ describe PaceCalculator do
 	end
 
 	it "is a valid pace" do 
-		expect(cal.get_pace).to eq(10.31)
+		expect(cal.get_pace).to eq("10:31")
 	end
 
 	it "is a valid hour" do 

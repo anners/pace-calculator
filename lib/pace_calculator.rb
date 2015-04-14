@@ -29,7 +29,8 @@ class PaceCalculator
  		seconds = (hour.to_i * 60**2) + (minutes.to_i * 60)
 
  		miles_per_minute = ((seconds / @distance.to_f) / 60 ).round(2)
- 		return miles_per_minute
+
+ 		return miles_per_minute.to_s.gsub('.',':')
 
 	end
 
@@ -38,8 +39,10 @@ class PaceCalculator
 		hour = get_hour(@start_time)
  		minutes = get_min(@start_time)
 
-		@finish_time.to_i.times do |i|
-	  	# do somoething
+
+		@distance.to_i.times do |i|
+	  		
+	  		puts "mile #{i}"
 		end
 	end
 
