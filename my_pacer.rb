@@ -16,4 +16,4 @@ end
 
 cal = PaceCalculator.new(distance, finish_time)
 pace = cal.get_pace()
-puts "your pace is #{pace} minutes per mile"
+puts "your pace is #{pace} miutes per mile"
