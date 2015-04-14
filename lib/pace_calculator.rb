@@ -51,7 +51,7 @@ class PaceCalculator
 			formatted_mins = '%02d' % minutes
 			formatted_secs = '%02d' % seconds
 	  		time = "#{hour}:#{formatted_mins}:#{formatted_secs}"
-	  		puts "mile #{i} : time #{time}"
+	  		#puts "mile #{i} : time #{time}"
 	  		miles_time[i] = time
 	  		minutes += pace_min.to_i
 	  		if minutes >= 60 
@@ -59,7 +59,7 @@ class PaceCalculator
 	  			hour += 1
 	  		end
 		end
-		pp miles_time
+		return miles_time
 	end
 
 	def get_hour(time)

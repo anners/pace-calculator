@@ -19,4 +19,9 @@ cal = PaceCalculator.new(distance, finish_time, start_time)
 pace = cal.get_pace
 puts "your pace is #{pace} miutes per mile"
 
-cal.mile_and_time
+mile_time = cal.mile_and_time
+
+
+mile_time.each do |mile, time|
+  puts "mile #{mile} : time #{time}"
+end
