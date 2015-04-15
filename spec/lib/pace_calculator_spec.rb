@@ -28,5 +28,10 @@ describe PaceCalculator do
 		expect(cal.get_min(cal.start_time)).to eq(01)
 	end
 
+	it "is a valid has" do
+		expect(cal.mile_and_time).to include(4 => "5:41:00")
+	end
+	
+
 
 end
