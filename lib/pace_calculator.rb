@@ -1,5 +1,4 @@
-#!/usr/bin/env ruby
-#
+
 # pace calculator - takes in a distance and your desired finish time 
 # and calculates your miles per minute and your time for each mile.
 # 
@@ -53,6 +52,7 @@ class PaceCalculator
 	  		time = "#{hour}:#{formatted_mins}:#{formatted_secs}"
 	  		#puts "mile #{i} : time #{time}"
 	  		miles_time[i] = time
+	  		seconds += pace_sec.to_i
 	  		minutes += pace_min.to_i
 	  		if minutes >= 60 
 	  			minutes -= 60
