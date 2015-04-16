@@ -8,8 +8,8 @@ describe PaceCalculator do
 		expect(cal.distance).to eq(13.1)
 	end
 
-	it "sets finish_time" do
-		expect(cal.finish_time).to eq("2:15")
+	it "sets total_time" do
+		expect(cal.total_time).to eq("2:15")
 	end
 
 	it "sets start_time" do
@@ -17,11 +17,11 @@ describe PaceCalculator do
 	end
 
 	it "is a valid pace" do 
-		expect(cal.get_pace).to eq("10:31")
+		expect(cal.get_pace).to eq("10:18")
 	end
 
 	it "is a valid hour" do 
-		expect(cal.get_hour(cal.finish_time)).to eq(2)
+		expect(cal.get_hour(cal.total_time)).to eq(2)
 	end
 
 	it "is a valid minutes" do 
@@ -29,7 +29,7 @@ describe PaceCalculator do
 	end
 
 	it "is a valid has" do
-		expect(cal.mile_and_time).to include(4 => "5:41:00")
+		expect(cal.mile_and_time).to include(4 => "5:42:12")
 	end
 	
 

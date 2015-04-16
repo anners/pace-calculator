@@ -14,24 +14,31 @@ require 'pp'
 
 class PaceCalculator
 
-   attr_accessor :distance, :finish_time, :start_time
+   attr_accessor :distance, :total_time, :start_time
 
-   def initialize(distance, finish_time, start_time)
+   def initialize(distance, total_time, start_time)
 	  @distance = distance
-	  @finish_time = finish_time
+	  @total_time = total_time
 	  @start_time = start_time
 	end
 
 	def get_pace() 
- 		hour = get_hour(@finish_time)
- 		minutes = get_min(@finish_time)
+ 		hour = get_hour(@total_time)
+ 		minutes = get_min(@total_time)
 
  		# convert to seconds
- 		seconds = (hour.to_i * 60**2) + (minutes.to_i * 60)
+ 		minutes = (hour.to_i * 60) + minutes.to_i
 
- 		miles_per_minute = ((seconds / @distance.to_f) / 60 ).round(2)
+ 		# fake pace the seconds need to be converted
+ 		fake_pace = (minutes / @distance.to_f).round(2)
 
- 		return miles_per_minute.to_s.gsub('.',':')
+ 		# get seconds to convert
+ 		minutes, seconds = fake_pace.to_s.split('.')
+ 		seconds = (".#{seconds}".to_f * 60).to_s.split('.').first
+
+ 		pace = "#{minutes}:#{seconds}"
+
+ 		return pace
 
 	end
 
@@ -45,14 +52,19 @@ class PaceCalculator
  		seconds = 0
  		miles_time = Hash.new 
 
-		@distance.to_i.times do |i|
+		(@distance.to_i+1).times do |i|
 			# format correcly
 			formatted_mins = '%02d' % minutes
 			formatted_secs = '%02d' % seconds
 	  		time = "#{hour}:#{formatted_mins}:#{formatted_secs}"
 	  		#puts "mile #{i} : time #{time}"
 	  		miles_time[i] = time
+	  		# time math is fun!
 	  		seconds += pace_sec.to_i
+	  		if seconds >= 60 
+	  			seconds -= 60
+	  			minutes += 1
+	  		end
 	  		minutes += pace_min.to_i
 	  		if minutes >= 60 
 	  			minutes -= 60
