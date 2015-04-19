@@ -64,32 +64,58 @@ class PaceCalculator
 
 	end
 
+	# simplied version of old get_full_course - merging hashes and sorting on miles
+	def full_course()
+		all_miles = Hash.new
+		aid_stations = get_aid_stations
+
+		(@distance.to_i+1).times do |i|
+			all_miles.merge!({"mile #{i}" => {:mile => i}})
+		end
+		all_miles.merge!(aid_stations)
+
+		course = all_miles.sort_by { |k,v| v[:mile]}
+
+		return course
+	end
+
 	# return all the miles and aid stations for the course
 	def get_full_course() 
 		total_course = Hash.new 
 		aid_stations = get_aid_stations
 
 		(@distance.to_i+1).times do |i| 
-			
 			aid_stations.each do |station, data|
-				
 				if data[:mile] == i 
 					#puts "#{mile} == #{i}"
-					total_course[station] = data[:mile]
+					#total_course[station][:mile] = data[:mile]
+					total_course = data
+					#if !data[:cutoff].nil?
+					#	puts "CUTOFF #{data[:cutoff]}"
+
+					#	total_course[station][:cutoff] = data[:cutoff]
+					#end
 					aid_stations.delete(station)
 					break
 				elsif data[:mile] > i && data[:mile] < i+1
 					#puts "#{mile} > #{i} && #{mile} < (#{i}+1)"
-					total_course["mile #{i}"] = i
-					total_course[station] = data[:mile]
+					total_course.merge!({"mile #{i}" => {:mile => i}})
+					total_course = data
+					#total_course[station][:mile] = data[:mile]
+					
+					#if !data[:cutoff].nil?
+					#	puts "CUTOFF #{data[:cutoff]}"
+					#	total_course[station][:cutoff] = data[:cutoff]
+					#end
 					aid_stations.delete(station)
 					break
 				else 
 					#puts "adding #{i} and #{mile} is"
-					total_course["mile #{i}"] = i
+					total_course.merge!({"mile #{i}" => {:mile => i}})
 				end
 			end
 		end
+		
 		return total_course
 	end
 

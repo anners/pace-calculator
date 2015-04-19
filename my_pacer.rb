@@ -23,9 +23,10 @@ mile_time = cal.mile_and_time
 
 
 mile_time.each do |mile, time|
-  puts "mile #{mile} : time #{time}"
+#  puts "mile #{mile} : time #{time}"
 end
 
+pp cal.full_course
 cal.get_full_course.each do |station, mile|
-#	puts "station: #{station} mile #{mile}"
+	#puts "station: #{station} mile #{mile}"
 end
