@@ -74,7 +74,7 @@ class PaceCalculator
 		end
 		all_miles.merge!(aid_stations)
 
-		course = all_miles.sort_by { |k,v| v[:mile]}
+		course = all_miles.sort_by { |key,value| value[:mile]}
 
 		return course
 	end
@@ -122,12 +122,13 @@ class PaceCalculator
 #
 # TODO return a hash and make single minutes 0X and do seconds math
 #
-	def mile_and_time()
+	def mile_and_timeXXX()
 		pace_min, pace_sec = get_pace.split(':')
 		hour = get_hour(@start_time)
  		minutes = get_min(@start_time)
  		seconds = 0
  		miles_time = Hash.new 
+ 		coure = full_course
  		
 
 		(@distance.to_i+1).times do |i|
@@ -137,6 +138,40 @@ class PaceCalculator
 	  		time = "#{hour}:#{formatted_mins}:#{formatted_secs}"
 	  		
 	  		miles_time[i] = time
+	  		# time math is fun!
+	  		seconds += pace_sec.to_i
+	  		if seconds >= 60 
+	  			seconds -= 60
+	  			minutes += 1
+	  		end
+	  		minutes += pace_min.to_i
+	  		if minutes >= 60 
+	  			minutes -= 60
+	  			hour += 1
+	  		end
+		end
+		return miles_time
+	end
+
+	# adding course
+	def mile_and_time()
+		pace_min, pace_sec = get_pace.split(':')
+		hour = get_hour(@start_time)
+ 		minutes = get_min(@start_time)
+ 		seconds = 0
+ 		miles_time = Hash.new 
+ 		course = full_course
+ 		
+
+		course.each do |key,value|
+			# format correcly
+			formatted_mins = '%02d' % minutes
+			formatted_secs = '%02d' % seconds
+	  		time = "#{hour}:#{formatted_mins}:#{formatted_secs}"
+	  		
+	  		# create a new has with aid stations, running time and cutoff times
+	  		miles_time.merge!({key => {:mile => value[:mile], :time => time, :cutoff => value[:cutoff]}})
+	  		
 	  		# time math is fun!
 	  		seconds += pace_sec.to_i
 	  		if seconds >= 60 
