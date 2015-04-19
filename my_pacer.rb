@@ -25,3 +25,7 @@ mile_time = cal.mile_and_time
 mile_time.each do |mile, time|
   puts "mile #{mile} : time #{time}"
 end
+
+cal.get_full_course.each do |station, mile|
+#	puts "station: #{station} mile #{mile}"
+end
