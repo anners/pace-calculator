@@ -23,8 +23,14 @@ mile_time = cal.mile_and_time
 
 pp mile_time
 
-#mile_time.each do |mile, time|
-#  puts "mile #{mile} : time #{time}"
-#end
+mile_time.each do |key, value|
+  if key.index("mile")
+    puts "mile #{value[:mile]} : time #{value[:time]}"
+	elsif value[:cutoff].nil?
+	  puts "mile #{value[:mile]} : aid station #{key}"
+	else
+	  puts "mile #{value[:mile]} : aid station #{key} : cutoff time #{value[:cutoff]}"
+	end
+end
 
 #pp cal.full_course
