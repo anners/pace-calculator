@@ -21,15 +21,13 @@ puts "your pace is #{pace} miutes per mile"
 
 mile_time = cal.mile_and_time
 
-pp mile_time
-
 mile_time.each do |key, value|
   if key.index("mile")
     puts "mile #{value[:mile]} : time #{value[:time]}"
 	elsif value[:cutoff].nil?
 	  puts "mile #{value[:mile]} : aid station #{key}"
 	else
-	  puts "mile #{value[:mile]} : aid station #{key} : cutoff time #{value[:cutoff]}"
+	  puts "mile #{value[:mile]} : cutoff time #{value[:cutoff]} : aid station #{key} "
 	end
 end
 

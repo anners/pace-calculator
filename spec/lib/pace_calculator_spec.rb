@@ -29,7 +29,7 @@ describe PaceCalculator do
 	end
 
 	it "is a valid has" do
-		expect(cal.mile_and_time).to include(4 => "5:42:12")
+		expect(cal.mile_and_time).to include("mile 4" => {:mile => 4, :time => "5:42:12", :cutoff=>nil})
 	end
 	
 
