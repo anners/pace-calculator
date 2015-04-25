@@ -14,14 +14,15 @@ require 'pp'
 
 class PaceCalculator
 
-   attr_accessor :distance, :total_time, :start_time
+   attr_accessor :distance, :total_time, :start_time, :with_aid_stations
 
 
 
-   def initialize(distance, total_time, start_time)
+   def initialize(distance, total_time, start_time, with_aid_stations)
 	  @distance = distance
 	  @total_time = total_time
 	  @start_time = start_time
+	  @with_aid_stations = with_aid_stations
 	end
 
 	# TODO set_aid_stations
@@ -47,6 +48,19 @@ class PaceCalculator
 	def get_pace() 
  		hour = get_hour(@total_time)
  		minutes = get_min(@total_time)
+ 		# get the number of aid stations and removed the first and last one
+ 		number_of_aid_stations = get_aid_stations.length-2
+
+ 		if with_aid_stations 
+ 		# add 5 minutes per aid station 
+	 		time_at_aid_stations = number_of_aid_stations * 5
+	 		if time_at_aid_stations >= 60 
+	 			minutes -= (time_at_aid_stations - 60)
+	 			hour -= 1
+	 		else
+	 			minutes -= time_at_aid_stations
+	 		end
+	 	end
 
  		# convert to seconds
  		minutes = (hour.to_i * 60) + minutes.to_i
@@ -89,7 +103,6 @@ class PaceCalculator
  		miles_time = Hash.new 
  		course = full_course
  		
-
 		course.each do |key,value|
 			# format correcly
 			formatted_mins = '%02d' % minutes
@@ -114,9 +127,6 @@ class PaceCalculator
 	  		else
 	  			miles_time.merge!({key => {:mile => value[:mile], :cutoff => value[:cutoff]}})
 	  		end
-
-	  		
-
 		end
 		return miles_time
 	end

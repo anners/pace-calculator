@@ -2,7 +2,7 @@ require "spec_helper"
 require "pace_calculator"
 
 describe PaceCalculator do
-	cal = PaceCalculator.new(13.1, "2:15", "5:01")
+	cal = PaceCalculator.new(13.1, "2:15", "5:01", true)
 
 	it "sets distance" do
 		expect(cal.distance).to eq(13.1)
@@ -17,7 +17,7 @@ describe PaceCalculator do
 	end
 
 	it "is a valid pace" do 
-		expect(cal.get_pace).to eq("10:18")
+		expect(cal.get_pace).to eq("6:52")
 	end
 
 	it "is a valid hour" do 
@@ -29,7 +29,7 @@ describe PaceCalculator do
 	end
 
 	it "is a valid has" do
-		expect(cal.mile_and_time).to include("mile 4" => {:mile => 4, :time => "5:42:12", :cutoff=>nil})
+		expect(cal.mile_and_time).to include("mile 4" => {:mile => 4, :time => "5:28:28", :cutoff=>nil})
 	end
 	
 
