@@ -19,7 +19,7 @@ end
 
 cal = PaceCalculator.new(distance, total_time, start_time, with_aid_stations)
 pace = cal.get_pace()
-puts "your pace is #{pace} miutes per mile"
+puts "your pace is #{pace} minutes per mile"
 
 mile_time = cal.mile_and_time
 

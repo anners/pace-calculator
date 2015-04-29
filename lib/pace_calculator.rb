@@ -40,7 +40,7 @@ class PaceCalculator
 			"Cardiac 2" => {:mile => 35.5, :cutoff => "13:45"}, 
 			"Bolinas Ridge 1" => {:mile => 42.5}, 
 			"Randall Trailhead" => {:mile => 49.2, :cutoff => "17:20"}, 
-			"Bolinas Ridge 2" => {:mile => 55.9, "18:30"}, 
+			"Bolinas Ridge 2" => {:mile => 55.9, :cutoff =>"18:30"}, 
 			"Stinson Beach" => {:mile=> 62.2, :cutoff => "20:30"} }
 		return aid_stations
 	end
