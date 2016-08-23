@@ -45,7 +45,7 @@ class PaceCalculator
 		#return aid_stations
 #	end
 #
-	def get_aid_staions()
+	def get_aid_stations()
 		aid_stations = {
 			"Bertone" => {:mile => 9},
 			"Bonatti" => {:mile =>14},
@@ -59,6 +59,7 @@ class PaceCalculator
 		}
 		return aid_stations
 	end
+
 	def get_pace() 
  		hour = get_hour(@total_time)
  		minutes = get_min(@total_time)
@@ -137,6 +138,9 @@ class PaceCalculator
 	  			if minutes >= 60 
 	  				minutes -= 60
 	  				hour += 1
+	  			end
+	  			if hour == 25
+	  				hour = 01
 	  			end
 	  		else
 	  			miles_time.merge!({key => {:mile => value[:mile], :cutoff => value[:cutoff]}})
