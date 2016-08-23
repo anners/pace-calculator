@@ -30,21 +30,35 @@ class PaceCalculator
 	end
 
 	# hard coded for Miwok100k
-	def get_aid_stations()
-		aid_stations = { "Cardiac 1" => {:mile => 2.8}, 
-		  "Muir Beach 1" => {:mile => 8}, 
-		  "Tennessee Valley 1" => {:mile => 13.8}, 
-			"Bridge View" => {:mile => 18.6}, 
-			"Tennessee Valley 2" => {:mile => 26, :cutoff => "12:00"},
-			"Muir Beach 2" => {:mile => 30.3},
-			"Cardiac 2" => {:mile => 35.5, :cutoff => "13:45"}, 
-			"Bolinas Ridge 1" => {:mile => 42.5}, 
-			"Randall Trailhead" => {:mile => 49.2, :cutoff => "17:20"}, 
-			"Bolinas Ridge 2" => {:mile => 55.9, :cutoff =>"18:30"}, 
-			"Stinson Beach" => {:mile=> 62.2, :cutoff => "20:30"} }
+	#def get_aid_stations()
+	#	aid_stations = { "Cardiac 1" => {:mile => 2.8}, 
+	#	  "Muir Beach 1" => {:mile => 8}, 
+		 # "Tennessee Valley 1" => {:mile => 13.8}, 
+		#	"Bridge View" => {:mile => 18.6}, 
+		#	"Tennessee Valley 2" => {:mile => 26, :cutoff => "12:00"},
+		#	"Muir Beach 2" => {:mile => 30.3},
+		#	"Cardiac 2" => {:mile => 35.5, :cutoff => "13:45"}, 
+		#	"Bolinas Ridge 1" => {:mile => 42.5}, 
+		#	"Randall Trailhead" => {:mile => 49.2, :cutoff => "17:20"}, 
+		#	"Bolinas Ridge 2" => {:mile => 55.9, :cutoff =>"18:30"}, 
+		##	"Stinson Beach" => {:mile=> 62.2, :cutoff => "20:30"} }
+		#return aid_stations
+#	end
+#
+	def get_aid_staions()
+		aid_stations = {
+			"Bertone" => {:mile => 9},
+			"Bonatti" => {:mile =>14},
+			"Arnouvaz" => {:mile => 17, :cutoff => "16:45"},
+			"La Fouly" => {:mile => 26, :cutoff => "20:30"},
+			"Champex-lac" => {:mile => 34, :cutoff => "23:30"},
+			"Trient" => {:mile => 45, :cutoff => "4:00"},
+			"Vallorcine" => {:mile => 51, :cutoff => "7:15"},
+			"La Flegere" => {:mile => 58, :cutoff => "10:45"},
+			"Chamonix" => {:mile => 63, :cutoff => "12:15"}		
+		}
 		return aid_stations
 	end
-
 	def get_pace() 
  		hour = get_hour(@total_time)
  		minutes = get_min(@total_time)
