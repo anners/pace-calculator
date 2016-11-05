@@ -11,6 +11,7 @@ distance = ARGV[0]
 total_time = ARGV[1]
 start_time = ARGV[2]
 with_aid_stations = false;
+pace_only = false;
 with_aid_stations = true if ARGV[3].eql?("with_aid_stations") 
 unless distance && total_time && start_time
 	puts "usage: pace-calculator distance total_time start_time (optional with_aid_stations)"
