@@ -11,6 +11,7 @@
 #
 
 require 'pp'
+require './lib/aid_stations'
 
 class PaceCalculator
 
@@ -45,28 +46,15 @@ class PaceCalculator
 		#return aid_stations
 #	end
 #
-	def get_aid_stations()
-		aid_stations = {
-			"Bertone" => {:mile => 9},
-			"Bonatti" => {:mile =>14},
-			"Arnouvaz" => {:mile => 17, :cutoff => "16:45"},
-			"La Fouly" => {:mile => 26, :cutoff => "20:30"},
-			"Champex-lac" => {:mile => 34, :cutoff => "23:30"},
-			"Trient" => {:mile => 45, :cutoff => "4:00"},
-			"Vallorcine" => {:mile => 51, :cutoff => "7:15"},
-			"La Flegere" => {:mile => 58, :cutoff => "10:45"},
-			"Chamonix" => {:mile => 63, :cutoff => "12:15"}		
-		}
-		return aid_stations
-	end
 
 	def get_pace() 
  		hour = get_hour(@total_time)
  		minutes = get_min(@total_time)
- 		# get the number of aid stations and removed the first and last one
- 		number_of_aid_stations = get_aid_stations.length-2
+ 		
 
  		if with_aid_stations 
+ 		# get the number of aid stations and removed the first and last one
+ 		number_of_aid_stations = get_aid_stations.length-2
  		# add 5 minutes per aid station 
 	 		time_at_aid_stations = number_of_aid_stations * 5
 	 		if time_at_aid_stations >= 60 
@@ -85,7 +73,7 @@ class PaceCalculator
 
  		# get seconds to convert
  		minutes, seconds = fake_pace.to_s.split('.')
- 		seconds = (".#{seconds}".to_f * 60).to_s.split('.').first
+ 		seconds = "%02d"%((".#{seconds}".to_f * 60).to_s.split('.').first)
 
  		pace = "#{minutes}:#{seconds}"
 
@@ -96,12 +84,16 @@ class PaceCalculator
 	# simplied version of old get_full_course - merging hashes and sorting on miles
 	def full_course()
 		all_miles = Hash.new
-		aid_stations = get_aid_stations
+		
 
 		(@distance.to_i+1).times do |i|
 			all_miles.merge!({"mile #{i}" => {:mile => i}})
 		end
-		all_miles.merge!(aid_stations)
+		if with_aid_stations
+			aid_stations = get_aid_stations
+			all_miles.merge!(aid_stations)
+		end
+		
 
 		course = all_miles.sort_by { |key,value| value[:mile]}
 
