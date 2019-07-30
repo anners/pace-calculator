@@ -1,17 +1,17 @@
 
-# pace calculator - takes in a distance and your desired finish time 
+# pace calculator - takes in a distance and your desired finish time
 # and calculates your miles per minute and your time for each mile.
-# 
+#
 # @mile_and_time - based on your pace, distance and start time creates a list of
 #                  of what time it should be every mile
-# 
+#
 # TODO: add aid stations and account for elevation changes
 #
 # @author ann wallace
 #
 
 require 'pp'
-require './lib/aid_stations'
+require './lib/waldo'
 
 class PaceCalculator
 
@@ -32,17 +32,17 @@ class PaceCalculator
 	end
 
 
-	def get_pace() 
+	def get_pace()
  		hour = get_hour(@total_time)
  		minutes = get_min(@total_time)
- 		
 
- 		if with_aid_stations 
+
+ 		if with_aid_stations
  		# get the number of aid stations and removed the first and last one
  		number_of_aid_stations = get_aid_stations.length-2
- 		# add 5 minutes per aid station 
+ 		# add 5 minutes per aid station
 	 		time_at_aid_stations = number_of_aid_stations * 5
-	 		if time_at_aid_stations >= 60 
+	 		if time_at_aid_stations >= 60
 	 			minutes -= (time_at_aid_stations - 60)
 	 			hour -= 1
 	 		else
@@ -69,7 +69,7 @@ class PaceCalculator
 	# simplied version of old get_full_course - merging hashes and sorting on miles
 	def full_course()
 		all_miles = Hash.new
-		
+
 
 		(@distance.to_i+1).times do |i|
 			all_miles.merge!({"mile #{i}" => {:mile => i}})
@@ -78,41 +78,41 @@ class PaceCalculator
 			aid_stations = get_aid_stations
 			all_miles.merge!(aid_stations)
 		end
-		
+
 
 		course = all_miles.sort_by { |key,value| value[:mile]}
 
 		return course
 	end
 
-	
+
 	# adding course
 	def mile_and_time()
 		pace_min, pace_sec = get_pace.split(':')
 		hour = get_hour(@start_time)
  		minutes = get_min(@start_time)
  		seconds = 0
- 		miles_time = Hash.new 
+ 		miles_time = Hash.new
  		course = full_course
- 		
+
 		course.each do |key,value|
 			# format correcly
 			formatted_mins = '%02d' % minutes
 			formatted_secs = '%02d' % seconds
 	  		time = "#{hour}:#{formatted_mins}:#{formatted_secs}"
-	  		
+
 	  		# create a new has with aid stations, running time and cutoff times
 	  		# TODO add math for parial miles
 	  		if key.index("mile")
 	  			miles_time.merge!({key => {:mile => value[:mile], :time => time, :cutoff => value[:cutoff]}})
 	  		    # time math is fun!
 	  			seconds += pace_sec.to_i
-	  			if seconds >= 60 
+	  			if seconds >= 60
 	  				seconds -= 60
 	  				minutes += 1
 	  			end
 	  			minutes += pace_min.to_i
-	  			if minutes >= 60 
+	  			if minutes >= 60
 	  				minutes -= 60
 	  				hour += 1
 	  			end
@@ -137,4 +137,3 @@ class PaceCalculator
 	end
 
 end
-
