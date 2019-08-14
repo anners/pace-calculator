@@ -20,18 +20,18 @@ end
 
 cal = PaceCalculator.new(distance, total_time, start_time, with_aid_stations, pace_only)
 pace = cal.get_pace()
-puts "your pace is #{pace} minutes per mile"
 
 mile_time = cal.mile_and_time
-
+puts "mile,time,aid station,cutoff time"
 mile_time.each do |key, value|
   if key.index("mile")
-    puts "mile #{value[:mile]} : time #{value[:time]}"
+    puts "mile #{value[:mile]},#{value[:time]}"
 	elsif value[:cutoff].nil?
-	  puts "mile #{value[:mile]} : aid station #{key}"
+	  puts "mile #{value[:mile]}, ,#{key}"
 	else
-	  puts "mile #{value[:mile]} : cutoff time #{value[:cutoff]} : aid station #{key} "
+	  puts "mile #{value[:mile]} , ,#{key},#{value[:cutoff]} "
 	end
 end
+puts "your pace is #{pace} minutes per mile"
 
 #pp cal.full_course

@@ -1,4 +1,4 @@
-class Waldo
+class AidStations
 	def get_aid_stations()
 		aid_stations = {
 			"Gold Lake" => {:mile => 7.4},

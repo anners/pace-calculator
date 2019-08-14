@@ -17,8 +17,6 @@ class PaceCalculator
 
    attr_accessor :distance, :total_time, :start_time, :with_aid_stations
 
-
-
    def initialize(distance, total_time, start_time, with_aid_stations, pace_only)
 	  @distance = distance
 	  @total_time = total_time
@@ -39,7 +37,8 @@ class PaceCalculator
 
  		if with_aid_stations
  		# get the number of aid stations and removed the first and last one
- 		number_of_aid_stations = get_aid_stations.length-2
+    as = AidStations.new
+ 		number_of_aid_stations = as.get_aid_stations.length-2
  		# add 5 minutes per aid station
 	 		time_at_aid_stations = number_of_aid_stations * 5
 	 		if time_at_aid_stations >= 60
@@ -75,7 +74,8 @@ class PaceCalculator
 			all_miles.merge!({"mile #{i}" => {:mile => i}})
 		end
 		if with_aid_stations
-			aid_stations = get_aid_stations
+      as = AidStations.new
+			aid_stations = as.get_aid_stations
 			all_miles.merge!(aid_stations)
 		end
 
